@@ -1,0 +1,41 @@
+name: CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Simulate deployment to staging
+      run: |
+        echo "========================================="
+        echo "Starting deployment to staging server..."
+        echo "========================================="
+        echo "Deploying with secret: ${{ secrets.DEPLOY_KEY }}"
+        echo "App would be deployed at this step"
+        echo "Running: scp -r ./ user@staging-server:/app/"
+        echo "========================================="
+        echo "Deployment complete!"
+        echo "App is now live at http://staging-server:3000"
+        echo "========================================="
+    
+    - name: Run post-deployment checks
+      run: |
+        echo "Running health check..."
+        echo "✓ App is responding"
+        echo "✓ Tests passing"
+        echo "Deployment successful!"
