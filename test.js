@@ -1,6 +1,6 @@
 console.log('Running tests...');
-// Simulate test pass
-if (true) {
+// Simulate test failure
+if (false) {
   console.log('   Tests passed');
   process.exit(0);
 } else {
